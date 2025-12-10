@@ -10,7 +10,7 @@ const NewsCard = ({ news }) => {
         total_view
     } = news;
 
-    const formattedDate = new Date(news.author.published_Date).toLocaleDateString();
+    const formattedDate = new Date(news.author.published_date).toLocaleDateString();
 
     return (
         <div className="card bg-base-100 shadow-md mb-6  rounded-lg">
@@ -58,9 +58,12 @@ const NewsCard = ({ news }) => {
 
             {/* Footer: Rating + Views */}
             <div className="flex justify-between items-center px-4 py-3 border-t text-sm text-gray-600">
-                <div className="flex items-center gap-1">
-                    <FaStar className="text-yellow-500" /> {rating?.number}
-                </div>
+               <div className="flex items-center gap-1 text-yellow-500">
+    {[...Array(Math.round(rating?.number || 0))].map((_, i) => (
+        <FaStar key={i} />
+    ))}
+</div>
+
 
                 <div className="flex items-center gap-1">
                     <FaEye /> {total_view}

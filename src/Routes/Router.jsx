@@ -7,6 +7,7 @@ import Login from "../Components/Pages/Login";
 import Register from "../Components/Pages/Register";
 import AuthLayout from "../Layouts/AuthLayout";
 import NewsDetails from "../Components/Pages/NewsDetails";
+import PrivateRoute from "../Provider/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -14,40 +15,44 @@ const router = createBrowserRouter([
     element: <HomeLayout></HomeLayout>,
     children: [
       {
-      path: "",
-      element: <Home></Home>
-    },
+        path: "",
+        element: <Home></Home>,
+      },
       {
-      path: "/category/:id",
-      element: <CategoryNews></CategoryNews>,
-      loader: () => fetch("/news.json"),
-    },
-  ],
+        path: "/category/:id",
+        element: <CategoryNews></CategoryNews>,
+        loader: () => fetch("/news.json"),
+      },
+    ],
   },
-   {
+  {
     path: "/auth",
     element: <AuthLayout></AuthLayout>,
     children: [
       {
-        path: '/auth/login',
-        element: <Login></Login>
+        path: "/auth/login",
+        element: <Login></Login>,
       },
       {
-        path: '/auth/register',
-        element: <Register></Register>
-      }
-    ]
+        path: "/auth/register",
+        element: <Register></Register>,
+      },
+    ],
   },
-   {
+  {
     path: "/news-details/:id",
-    element: <NewsDetails></NewsDetails>,
-    loader: () => fetch("/news.json")
+    element: (
+      <PrivateRoute>
+        <NewsDetails></NewsDetails>
+      </PrivateRoute>
+    ),
+    loader: () => fetch("/news.json"),
   },
-   {
+  {
     path: "/*",
     element: <h1>Error-404</h1>,
   },
 ]);
 
- <RouterProvider router={router} />
- export default router
+<RouterProvider router={router} />;
+export default router;

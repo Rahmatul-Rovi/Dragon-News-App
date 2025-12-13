@@ -9,6 +9,8 @@ import AuthLayout from "../Layouts/AuthLayout";
 import NewsDetails from "../Components/Pages/NewsDetails";
 import PrivateRoute from "../Provider/PrivateRoute";
 import Loading from "../Components/Pages/Loading";
+import About from "../Components/Pages/About";
+import Career from "../Components/Pages/Career";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
     ),
     loader: () => fetch("/news.json"),
     hydrateFallbackElement: <Loading></Loading>
+  },
+  {
+    path: "/about",
+    element: <About></About>
+  },
+  {
+   path: "/career",
+   element: <Career></Career>
   },
   {
     path: "/*",
